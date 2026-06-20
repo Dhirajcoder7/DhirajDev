@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Featured Projects</title>
+  <!-- Link to FontAwesome for project link icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+/* ====== GLOBAL VARIABLES & RESET ====== */
+:root {
+  --theme-blue: #447D9B;
+  --theme-blue-dark: #335f76;
+  --theme-bg-light: #f0f4f8;
+  --theme-white: #ffffff;
+  --theme-text-dark: #222222;
+  --theme-text-muted: #555555;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--theme-bg-light);
+}
+
+/* ====== PROJECT SECTION LAYOUT ====== */
+.project_container {
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-content {
+  text-align: center;
+  max-width: 48rem;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+}
+
+.header-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--theme-blue);
+  margin-bottom: 0.5rem;
+}
+
+.header-content p {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: var(--theme-text-muted);
+  line-height: 1.6;
+}
+
+/* Responsive Grid Layout */
+.prct-main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  max-width: 72rem;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+}
+
+/* ====== INTERACTIVE SQUARE CARD DESIGN ====== */
+.project-card {
+  background-color: var(--theme-white);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Forces a perfect 1:1 square ratio container */
+.card-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; 
+  overflow: hidden;
+  background-color: #e2e8f0;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: all 0.35s ease;
+}
+
+/* Live Badge Overlay */
+.status-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--theme-white);
+  letter-spacing: 0.5px;
+  z-index: 2;
+  background-color: #13b17c;
+}
+
+/* Card Description Details Box */
+.card-content {
+  padding: 1.5rem;
+  background: var(--theme-white);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--theme-text-dark);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.external-link {
+  color: #9ca3af;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.card-description {
+  color: var(--theme-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ====== CONTACT SECTION STYLE ENVIRONMENT ====== */
+.contact-section {
+  padding: 5rem 0;
+  background-color: #f0f4f8; 
+  width: 100%;
+}
+
+.contact-section .container {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+.section-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #447D9B; 
+  margin: 0 0 0.5rem 0;
+}
+
+.section-subheading {
+  text-align: center;
+  max-width: 42rem;
+  margin: 0 auto 3.5rem;
+  font-size: 1.05rem;
+  color: #555555;
+  line-height: 1.6;
+}
+
+/* Flexbox Grid Wrapper split */
+.contact-wrapper {
+  display: flex;
+  gap: 3rem;
+  align-items: stretch;
+}
+
+/* --- Form Column Environment --- */
+.contact-form {
+  flex: 1.3;
+  background-color: #ffffff;
+  padding: 2.5rem  2.5rem  2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+.contact-form h3, 
+.contact-info h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #222222;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  background-color: #f8fafc;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #222222;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.form-group textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+/* Input Focus Glow state */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #447D9B;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(68, 125, 155, 0.1);
+}
+
+/* Interactive Action Submit Trigger */
+.submit-btn {
+  background-color: #447D9B;
+  color: #ffffff;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(68, 125, 155, 0.2);
+  transition: all 0.3s ease;
+}
+
+.submit-btn i {
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
+}
+
+/* --- Info Column Environment --- */
+.contact-info {
+  flex: 0.9;
+  background: linear-gradient(135deg, #447D9B 0%, #335f76 100%);
+  padding: 2rem;
+  border-radius: 20px;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(68, 125, 155, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info h3 {
+  color: #ffffff;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.3rem;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-icon {
+  width: 46px;
+  height: 46px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.info-item h4 {
+  margin: 0 0 0.2rem 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.info-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* --- Bottom Profile Image Alignment Container --- */
+.info-profile-box {
+  margin-top: auto; 
+  padding-top: rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.info-profile-img {
+  width: 330px;
+  height: 160px;
+  object-fit: cover;
+  border-radius:10px;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* ====== COMPONENT INTERACTIVE HOVERS ====== */
+@media (hover: hover) {
+  /* Project Card Hover Setup */
+  .project-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--theme-blue);
+    box-shadow: 0 20px 25px -5px rgba(68, 125, 155, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .project-card:hover .card-image {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+
+  .project-card:hover .card-title {
+    color: var(--theme-blue);
+  }
+
+  .project-card:hover .external-link {
+    color: var(--theme-blue);
+    transform: translate(2px, -2px);
+  }
+
+  /* Form Button Hovers */
+  .submit-btn:hover {
+    background-color: #335f76;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(51, 95, 118, 0.3);
+  }
+  
+  .submit-btn:hover i {
+    transform: translate(2px, -2px);
+  }
+
+  /* Profile Avatar Glow Hovers */
+  .info-profile-img:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* ====== CONSOLIDATED RESPONSIVE MEDIA QUERIES ====== */
+@media (max-width: 992px) {
+  .prct-main {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .header-content h2 {
+    font-size: 2.2rem;
+  }
+  .contact-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .contact-form, .contact-info {
+    flex: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .info-profile-box {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .project_container {
+    padding: 2.5rem 0;
+  }
+  .prct-main {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  .header-content h2 {
+    font-size: 1.85rem;
+  }
+  .header-content p {
+    font-size: 1rem;
+  }
+  .card-content {
+    padding: 1.25rem;
+  }
+  .contact-section {
+    padding: 3.5rem 0;
+  }
+  .section-heading {
+    font-size: 2rem;
+  }
+  .section-subheading {
+    margin-bottom: 2.5rem;
+  }
+  .contact-form, .contact-info {
+    padding: 1.75rem 1.25rem;
+  }
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <section class="project_container">
+    <div class="header-content">
+      <h2>Featured Projects</h2>
+      <p>Explore some of my recent web development projects. Click on any card to view the live website.</p>
+    </div>
+
+    <div class="prct-main">
+
+      <!-- Project 1: Virtualeases -->
+      <a href="https://virtualeases.com/" target="_blank" class="project-card">
+        <div class="card-image-container">
+          <img src="VIR1.png" alt="Virtualeases Website" class="card-image">
+          <div class="status-badge">Live</div>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <h3 class="card-title">Virtualeases</h3>
+            <i class="fas fa-external-link-alt external-link"></i>
+          </div>
+          <p class="card-description">Clean corporate infrastructure and modern tech agency ecosystem.</p>
+        </div>
+      </a>
+
+      <!-- Project 2: The Beauty Garage Salon -->
+      <a href="https://thebeautygaragesalon.com/" target="_blank" class="project-card">
+        <div class="card-image-container">
+          <img src="TBG1.png" alt="The Beauty Garage" class="card-image">
+          <div class="status-badge">Live</div>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <h3 class="card-title">The Beauty Garage</h3>
+            <i class="fas fa-external-link-alt external-link"></i>
+          </div>
+          <p class="card-description">Luxury salon web identity and seamless digital booking layout.</p>
+        </div>
+      </a>
+
+      <!-- Project 3: Kwik Kwality Fastener -->
+      <a href="https://kwikkwalityfastenerpvtltd.in/" target="_blank" class="project-card">
+        <div class="card-image-container">
+          <img src="KK1.png" alt="Kwik Kwality Fastener" class="card-image">
+          <div class="status-badge">Live</div>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <h3 class="card-title">Kwik Kwality Fastener</h3>
+            <i class="fas fa-external-link-alt external-link"></i>
+          </div>
+          <p class="card-description">High-performance industrial B2B corporate digital profile system.</p>
+        </div>
+      </a>
+
+      <!-- Project 4: Gulf Coast Valet Trash -->
+      <a href="https://gulfcoastvalettrash.com/" target="_blank" class="project-card">
+        <div class="card-image-container">
+          <img src="Gulf1.png" alt="Gulf Coast Valet Trash" class="card-image">
+          <div class="status-badge">Live</div>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <h3 class="card-title">Gulf Coast Trash</h3>
+            <i class="fas fa-external-link-alt external-link"></i>
+          </div>
+          <p class="card-description">Modern commercial logistics and residential services hub.</p>
+        </div>
+      </a>
+
+      <!-- Project 5: A4N Realty -->
+      <a href="https://a4nrealty.com/" target="_blank" class="project-card">
+        <div class="card-image-container">
+          <img src="A4N1.png" alt="A4N Realty" class="card-image">
+          <div class="status-badge">Live</div>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <h3 class="card-title">A4N Realty</h3>
+            <i class="fas fa-external-link-alt external-link"></i>
+          </div>
+          <p class="card-description">Premium corporate real estate showcase and interactive landing page.</p>
+        </div>
+      </a>
+   <!-- Project 5: Five Star GC -->
+      <a href="https://fivestar-gc.com/" target="_blank" class="project-card">
+        <div class="card-image-container">
+          <img src="FIV1.png" alt="Five Star GC" class="card-image">
+          <div class="status-badge">Live</div>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <h3 class="card-title">Five Star GC</h3>
+            <i class="fas fa-external-link-alt external-link"></i>
+          </div>
+          <p class="card-description">Sleek, high-converting commercial service agency web interface.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <h2 class="section-heading">Get In Touch</h2>
+    <p class="section-subheading">
+      Have a project in mind or just want to say hello? Fill out the form below or send me an email and I'll get back to you as soon as possible.
+    </p>
+    
+    <div class="contact-wrapper">
+      <div class="contact-form">
+        <h3>Send a Message</h3>
+        <form action="https://usebasin.com/f/1bcb50ac95ff" method="POST">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="UserName" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="UserEmail" placeholder="you@gmail.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="Message" placeholder="Your message..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+
+      <!-- Info Deck -->
+<div class="contact-info">
+  <h3>Contact Information</h3>
+  
+  <div class="info-item">
+    <span class="info-icon"><i class="fas fa-user"></i></span>
+    <div>
+      <h4>Dhiraj Gupta</h4>
+      <p>Web Developer</p>
+    </div>
+  </div>
+  
+  <div class="info-item">
+    <span class="info-icon"><i class="fas fa-map-marker-alt"></i></span>
+    <div>
+      <h4>Location</h4>
+      <p>Mumbai, Maharashtra, India</p>
+    </div>
+  </div>
+  
+  <div class="info-item">
+    <span class="info-icon"><i class="fas fa-phone"></i></span>
+    <div>
+      <h4>Phone</h4>
+      <p>+91 8856988361</p>
+    </div>
+  </div>
+  
+  <div class="info-item">
+    <span class="info-icon"><i class="fas fa-envelope"></i></span>
+    <div>
+      <h4>Email</h4>
+      <p>dhirajcoder777@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- New Profile Image Box at the bottom -->
+  <div class="info-profile-box">
+   <a href="https://github.com/Dhirajcoder7" target="_blank"><img src="images\gitprofile.jpg" alt="Dhiraj Gupta Profile" class="info-profile-img"></a>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
